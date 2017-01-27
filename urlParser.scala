@@ -19,11 +19,11 @@
 object urlParser extends App{
 
   val url=urlParser("https","google.com","/home/desktop","state=hash&isauthcode=true&code=112")
-  println(url)			//pass the complete url in parts.  
+  println(url)
 
   def apply(prtocolPassed: String, domainName: String, pathName: String, paramsPassed: String): String = {
       prtocolPassed + "://" + domainName + pathName + "?" + paramsPassed
-       }			//make the url 
+       }
 
   def unapply(url:String): Option[(String , String, String,Map[String,String])] ={
     val protocolUsed= url.split("://").head
@@ -44,6 +44,14 @@ object urlParser extends App{
     }
     Some(protocolUsed,domainUsed,pathUsed,paramsUsed)
   }
-    val result=urlParser.unapply(url)
-    println(result)
-}				// generate the parts of url
+
+
+  def parseUrl(url : String) = {
+    url match{
+      case urlParser(protocol,domain,path,params) => println(s"protocol : $protocol\ndomain : $domain\npath : $path\nparams : $params")
+      case _ => println("not a Url")
+    }
+  }
+   val result = parseUrl(url)
+
+}
